@@ -1,0 +1,59 @@
+@import 'app/styles/variables.scss';
+
+/* You can add global styles to this file, and also import other style files */
+html, body{
+  height: 100%;
+  background-color: $body-bg;
+
+  .layout {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    align-content: stretch;
+    margin: 50px 20px;
+    > .grid {
+      width: 500px;
+      height: 300px;
+      padding: 20px;
+      background: $white;
+      margin: 5px 0;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px -6px $grid-box-shadow;
+    }
+  }
+
+  .line-chart-stroke{
+    stroke: $line-chart-stroke-bg;
+  }
+  
+  .bar{
+    cursor: pointer;
+    fill: $bar-bg;
+    &:hover{
+      fill: $bar-hover-bg;
+    }
+  }
+  .bar-line-dot{
+    fill: $bar-chart-line-dot-bg;
+  }
+  
+  .bar-chart-line-stoke{
+    stroke: $bar-chart-line-stoke-bg;
+  }
+  .line-chart-gradient{
+    fill: url(#pink-shade);
+  }
+  
+  .hide{
+    display: none;
+  }
+  
+  .tick {
+    color: $axis-font-color;
+  }
+  .domain {
+    opacity: .2;
+  }
+}

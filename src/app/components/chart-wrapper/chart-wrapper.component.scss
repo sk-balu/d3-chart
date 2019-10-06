@@ -1,0 +1,63 @@
+@import '../../styles/variables.scss';
+
+:host ::ng-deep{
+  .chart-wrapper{
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
+  .tooltip {
+    background-color: $tooltip-bg;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 1;
+    font-size: 11px;
+    font-family: sans-serif;
+    white-space: nowrap;
+    &.transition{
+      transition-property: top left;
+      transition-duration: .3s;
+      -webkit-transition-property: top left; /* Safari */
+      -webkit-transition-duration: .3s; /* Safari */
+    }
+    > .date {
+      color: $light-gray;
+    }
+    
+    > .revenue {
+        margin-top: 3px;
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        color: $white;
+      &:before {
+        content: '$';
+      }
+    }
+
+    &:after {
+      border-top: 7px solid $tooltip-bg;
+      border-right: 7px solid transparent;
+      border-left: 7px solid transparent;
+      content: " ";
+      font-size: 0;
+      line-height: 0;
+      position: absolute;
+      bottom: -7px;
+      left: calc(50% - 7px);
+    }
+
+    > .growth {
+        color: $light-gray;
+        margin-top: 2px;
+        display: inline-block;
+        
+        &:before {
+          content: 'Growth rate: ';
+        }
+    }
+  }
+}

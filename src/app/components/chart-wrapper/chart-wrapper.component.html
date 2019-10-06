@@ -1,0 +1,17 @@
+<div #wrapperRef class="chart-wrapper">
+  <ng-container *ngIf="layerRendered">
+    <app-line-chart *ngIf="isLineType" [scales]="scales"
+                                     [layer]='layer'
+                                     [data]="data"
+                                     [layerHeight]='layerHeight'
+                                     [layerWidth]='layerWidth'
+                                     [wrapperRef]='wrapperRef'></app-line-chart>
+  
+    <app-bar-chart *ngIf="!isLineType" [scales]="scales"
+                                     [layer]='layer'
+                                     [data]="data"
+                                     [layerHeight]='layerHeight'
+                                     [layerWidth]='layerWidth'
+                                     [wrapperRef]='wrapperRef'></app-bar-chart>
+  </ng-container>
+</div>

@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { MONTHLY_DATA, DAILY_DAY } from './constants/data';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'd3-chart';
+  dailyData = DAILY_DAY;
+  monthlyData = MONTHLY_DATA;
 }
