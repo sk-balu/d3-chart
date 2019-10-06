@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MONTHLY_DATA, DAILY_DAY } from './constants/data';
+import { MONTHLY_DATA, DAILY_DATA } from './constants/data';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +7,6 @@ import { MONTHLY_DATA, DAILY_DAY } from './constants/data';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  dailyData = DAILY_DAY;
+  dailyData = DAILY_DATA;
   monthlyData = MONTHLY_DATA;
 }

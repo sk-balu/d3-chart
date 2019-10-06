@@ -1,16 +1,18 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { configureTestSuite } from 'ng-bullet';
 
 import { ChartWrapperComponent } from './chart-wrapper.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('ChartWrapperComponent', () => {
   let component: ChartWrapperComponent;
   let fixture: ComponentFixture<ChartWrapperComponent>;
 
-  beforeEach(async(() => {
+  configureTestSuite((() => {
     TestBed.configureTestingModule({
-      declarations: [ ChartWrapperComponent ]
-    })
-    .compileComponents();
+      declarations: [ ChartWrapperComponent ],
+      schemas: [NO_ERRORS_SCHEMA]
+    });
   }));
 
   beforeEach(() => {
@@ -19,7 +21,7 @@ describe('ChartWrapperComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('CHART-WRAPPER-COMPONENT-1 - Initialization', () => {
     expect(component).toBeTruthy();
   });
 });

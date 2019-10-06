@@ -15,8 +15,4 @@ export class CommonUtil {
     tip.html(content);
     return tip;
   }
-
-  setTipPosition( tip, left, top ) {
-    tip.style('left', left).style('top', top)
-  }
 }

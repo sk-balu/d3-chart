@@ -2,7 +2,7 @@ export const WIDTH = '100%', HEIGHT = '100%',
       MARGINS = { top: 20, right: 20, bottom: 20, left: 50 };
 
 
-export const DAILY_DAY = [
+export const DAILY_DATA = [
   { 'time': 1425299975000, 'revenue': 686 },
   { 'time': 1425472775000, 'revenue': 170 },
   { 'time': 1425512375000, 'revenue': 53 },

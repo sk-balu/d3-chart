@@ -16,14 +16,16 @@ export class ChartWrapperComponent implements AfterViewInit {
   @Input() chartType = 'chart';
 
   public layer;
+  public layerWidth;
+  public layerHeight;
+  public isLineType = false;
+  public layerRendered = false;
 
   private xAxis;
   private xScale;
   private yAxis;
   private yScale;
   private boundary;
-  private layerRendered = false;
-  private isLineType = false;
 
   get scales() {
     return {
@@ -31,14 +33,6 @@ export class ChartWrapperComponent implements AfterViewInit {
       yScale: this.yScale,
       xAxis: this.xAxis
     };
-  }
-
-  get layerWidth() {
-    return this.boundary.width;
-  }
-
-  get layerHeight() {
-    return this.boundary.height;
   }
 
   ngAfterViewInit() {
@@ -56,6 +50,8 @@ export class ChartWrapperComponent implements AfterViewInit {
                   .attr('height', HEIGHT);
 
     this.boundary = this.layer.node().getBoundingClientRect();
+    this.layerHeight = this.boundary.height;
+    this.layerWidth = this.boundary.width;
 
     this.drawXAxis();
     this.drawYAxis();

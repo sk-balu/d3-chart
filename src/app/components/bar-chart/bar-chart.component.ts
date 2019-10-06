@@ -18,16 +18,16 @@ export class BarChartComponent implements OnInit {
   @Input() layerWidth;
   @Input() wrapperRef;
 
-  private tooltip;
+  public tooltip;
 
-  constructor( protected cu: CommonUtil ) { }
+  constructor( public cu: CommonUtil ) { }
 
   ngOnInit() {
     this.drawBar();
     this.tooltip = this.cu.createTooltip( this.wrapperRef, 'transition' );
   }
 
-  private drawBar() {
+  public drawBar() {
 
     const x = this.scales.xScale,
           y = this.scales.yScale,
@@ -48,19 +48,19 @@ export class BarChartComponent implements OnInit {
        .enter().append('rect')
        .attr('class', 'bar')
        .attr('width', '3%')
-       .attr('height', (d: any ) => (this.layerHeight - y(d.revenue)) )
+       .attr('height', (d: any ) => (this.layerHeight - y(d.revenue) ))
        .attr('x', (d: any ) =>  x(d.time) )
        .attr('y', y(0))
        .on( 'mouseover', ( d: any, index ) => {
-          const circle: any = d3.select(this.wrapperRef).select('svg').selectAll('circle').nodes()[index];
-          circle.style.opacity = '1';
+          const circle: any = svg.selectAll('circle').nodes()[index];
+          circle.style.opacity = 1;
           if ( this.tooltip ) { this.showTip(d, circle); }
         })
        .on( 'mouseleave', () => {
-          const circle: any = d3.select(this.wrapperRef).select('svg').selectAll('circle');
-          circle.style( 'opacity', '0');
+          const circle: any = svg.selectAll('circle');
+          circle.style( 'opacity', 0);
           if ( this.tooltip ) {
-            this.tooltip.style('opacity', '0');
+            this.tooltip.style('opacity', 0);
           }
         });
 
@@ -69,7 +69,7 @@ export class BarChartComponent implements OnInit {
     this.drawTipDots(x, y);
   }
 
-  private lineWithCurtain(svg, line, transition) {
+  public lineWithCurtain(svg, line, transition) {
 
     svg.append('clipPath')
       .attr('id', 'clip')
@@ -98,7 +98,7 @@ export class BarChartComponent implements OnInit {
     transition.duration(1000).ease(d3.easeLinear).select('rect.curtain').attr('width', 0);
   }
 
-  private drawTipDots(x: any, y: any) {
+  public drawTipDots(x: any, y: any) {
     d3.select(this.wrapperRef).select('svg').selectAll('circle') // this is the circle pointer to follow mouse
       .data(this.data)
       .enter()
@@ -113,7 +113,7 @@ export class BarChartComponent implements OnInit {
       .attr('class', 'bar-line-dot')
       .attr('stroke-width', '1px')
       .attr('stroke', '#fff')
-      .style('opacity', '0');
+      .style('opacity', 0);
   }
 
   private showTip(d: any, circle: any) {
@@ -124,7 +124,7 @@ export class BarChartComponent implements OnInit {
             growth: d3.format('.0%')(d.growth / d.revenue)
           };
 
-    this.tooltip.style('opacity', '1');
+    this.tooltip.style('opacity', 1);
     this.cu.setTooltipContent( this.tooltip, data )
             .style('left', `${(circle.attributes.cx.value - (tooltip.offsetWidth / 2))}px`)
             .style('top', `${(circle.attributes.cy.value - (tooltip.offsetHeight + 30))}px`);

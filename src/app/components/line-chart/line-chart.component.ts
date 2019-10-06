@@ -11,9 +11,9 @@ import * as moment from 'moment';import { CommonUtil } from 'src/app/utils/commo
 })
 export class LineChartComponent implements OnInit {
 
-  private categories;
-  private tooltip;
-  private lines;
+  public tooltip;
+  public categories;
+  public lines;
 
   @Input() data;
   @Input() layer;
@@ -22,7 +22,7 @@ export class LineChartComponent implements OnInit {
   @Input() layerWidth;
   @Input() wrapperRef;
 
-  constructor( protected cu: CommonUtil ) { }
+  constructor( public cu: CommonUtil ) { }
 
   ngOnInit() {
     this.drawSpike();
@@ -30,7 +30,7 @@ export class LineChartComponent implements OnInit {
     this.tooltip = this.cu.createTooltip( this.wrapperRef );
   }
 
-  private drawSpike() {
+  public drawSpike() {
 
     const line = d3.line().curve(d3.curveCatmullRom)
                           .x(( d: any ) =>  this.scales.xScale(d.time) )
@@ -41,7 +41,7 @@ export class LineChartComponent implements OnInit {
                           .y1(( d: any ) => this.scales.yScale(d.revenue) ),
           lines = this.layer.append('path')
                             .datum(LINE_DUMMY_DATA)
-                            .attr('class', 'pointers bar-chart-line-stoke')
+                            .attr('class', 'pointers line-chart-stoke')
                             .attr('stroke-width', 3)
                             .attr('fill', 'none')
                             .attr('d', ( d ) => line(d) ),
@@ -56,7 +56,7 @@ export class LineChartComponent implements OnInit {
     areas.transition().delay(500).ease(d3.easeCircle).duration(200).attr('opacity', '1' );
   }
 
-  private drawPointers() {
+  public drawPointers() {
 
     const pointers = this.getMouseData(),
           mouseWrapper = this.layer.append('g').attr('class', 'mouse-over-effects'),
@@ -109,18 +109,19 @@ export class LineChartComponent implements OnInit {
           .attr('x', MARGINS.left)
           .attr('fill', 'none')
           .attr('pointer-events', 'all')
-          .on('mouseout', () => { // on mouse out hide line, circles and text
+          .on('mouseout', () => { // on mouse out hide line and circles
             this.togglePointers('0');
           })
-          .on('mouseover', () => { // on mouse in show line, circles and text
+          .on('mouseover', () => { // on mouse in show line and circles
             this.togglePointers('1');
           })
-          .on('mousemove', function( e ) { // mouse moving over canvas
-            _this.movePointers(d3.mouse(this), mousePerLine, pointerLine);
+          .on('mousemove', function() { // mouse moving over canvas
+            const mouseEvent: any = event;
+            _this.movePointers([mouseEvent.layerX, mouseEvent.layerY], mousePerLine, pointerLine);
           });
   }
 
-  private movePointers(mouse, mousePerLine, pointerLine ) {
+  public movePointers(mouse, mousePerLine, pointerLine ) {
 
     mousePerLine.attr('transform', (d: any, i) => {
 
@@ -132,7 +133,7 @@ export class LineChartComponent implements OnInit {
     });
   }
 
-  private showTip(pos: any, mouse: any) {
+  public showTip(pos: any, mouse: any) {
     if (pos.x && this.tooltip && this.tooltip.node()) {
       const tooltip = this.tooltip.node(),
             data = {
@@ -146,7 +147,7 @@ export class LineChartComponent implements OnInit {
     }
   }
 
-  private getCoordinates( path, mouse ) {
+  public getCoordinates( path, mouse ) {
     let beginning = 0,
         end = path.getTotalLength(),
         target, pos;
@@ -169,7 +170,7 @@ export class LineChartComponent implements OnInit {
     return pos;
   }
 
-  private getPathPosition(path, target: any) {
+  public getPathPosition(path, target: any) {
     let pos;
     if (path.classList.contains('domain')) {
       pos = { y: this.layerHeight - MARGINS.bottom };
@@ -183,7 +184,6 @@ export class LineChartComponent implements OnInit {
     const wrapper = d3.select(this.wrapperRef);
     wrapper.select('.mouse-line').style('opacity', value);
     wrapper.selectAll('.mouse-per-line circle').style('opacity', value);
-    wrapper.selectAll('.mouse-per-line text').style('opacity', value);
 
     if ( this.tooltip ) {
       this.tooltip.style('opacity', value);

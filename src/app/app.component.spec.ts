@@ -1,27 +1,20 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { configureTestSuite } from 'ng-bullet';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+
+
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  configureTestSuite((() => {
     TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
+      declarations: [ AppComponent ],
+      schemas: [NO_ERRORS_SCHEMA]
+    });
   }));
-  it('should create the app', async(() => {
+
+  it('APP-COMPONENT-1 - Initialization', async(() => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  }));
-  it(`should have as title 'd3-chart'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('d3-chart');
-  }));
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to d3-chart!');
   }));
 });
